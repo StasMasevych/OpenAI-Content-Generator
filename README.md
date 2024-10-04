@@ -1,3 +1,3 @@
-# openAI-basics
+# openAI-Content-Generator app
 
-All course files for the OpenAI Basics Tutorial on the Net Ninja YouTube channel and on NetNinja.dev
+![Screenshot](public/Screenshot%202024-10-04%20at%2013.38.28.png)
