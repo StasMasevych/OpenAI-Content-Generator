@@ -1,6 +1,8 @@
 const openai = require("../config/openaiConfig");
 
-const generateMeta = async (title) => {
+const generateMeta = async (req, res) => {
+  const { title } = req.body;
+
   const description = await openai.createChatCompletion({
     model: "gpt-3.5-turbo",
     messages: [
@@ -12,7 +14,7 @@ const generateMeta = async (title) => {
     max_tokens: 100,
   });
 
-  console.log(description.data.choices[0].message);
+  /* console.log(description.data.choices[0].message); */
 
   const tags = await openai.createChatCompletion({
     model: "gpt-3.5-turbo",
@@ -25,17 +27,25 @@ const generateMeta = async (title) => {
     max_tokens: 100,
   });
 
-  console.log(tags.data.choices[0].message);
+  res.status(200).json({
+    description: description.data.choices[0].message,
+    tags: tags.data.choices[0].message,
+  });
+
+  /* console.log(tags.data.choices[0].message); */
 };
 
-const generateImage = async (desc) => {
+const generateImage = async (req, res) => {
   const image = await openai.createImage({
-    prompt: desc,
+    prompt: req.body.prompt,
     n: 1,
     size: "1024x1024",
   });
 
-  console.log(image.data.data[0].url);
+  /* console.log(image.data.data[0].url); */
+  res.json({
+    url: image.data.data[0].url,
+  });
 };
 
 module.exports = { generateMeta, generateImage };
